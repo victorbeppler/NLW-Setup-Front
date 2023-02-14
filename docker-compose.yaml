@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  dev:
+    image: front-habit-app
+    container_name: front-habit-app
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - '4000:3000'
