@@ -11,3 +11,19 @@ services:
       - ./:/app
     ports:
       - '4000:3000'
+
+
+version: '2.2'
+
+services:
+  frontend:
+    image: front-habit-app
+    build: .
+    ports:
+      - "4000:4000"
+    restart: on-failure
+    container_name: front-habit-app
+    command: npm start
+    volumes:
+      - .:/app
+      - /app/node_modules
