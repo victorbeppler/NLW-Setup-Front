@@ -8,6 +8,8 @@ RUN chmod +x /entrypoint.sh
 ADD . .
 
 RUN npm install
+RUN npm install vite --save-dev
+RUN npm install react-scripts@5.0.1
 
 ENTRYPOINT ["/entrypoint.sh"]
 
