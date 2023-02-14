@@ -2,15 +2,12 @@ FROM node:16-alpine
 
 WORKDIR /app
 
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+EXPOSE 3000
 
-ADD . .
+COPY package.json package-lock.json ./
 
-RUN npm install
-RUN npm install vite --save-dev
-RUN npm install react-scripts@5.0.1
+RUN npm install --silent
 
-ENTRYPOINT ["/entrypoint.sh"]
+COPY . ./
 
 CMD ["npm", "run", "dev"]
