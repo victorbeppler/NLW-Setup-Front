@@ -8,7 +8,7 @@ COPY package*.json ./
 
 # Install dependencies
 RUN npm install
-RUN npm install -g vite
+RUN npm install -g vite@4.0.0
 # Copy the rest of the application code to the container
 COPY . .
 
