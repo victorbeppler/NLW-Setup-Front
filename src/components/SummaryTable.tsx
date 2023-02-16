@@ -32,11 +32,11 @@ export function SummaryTable() {
 
     useEffect(() => {
         api.get('/summary').then(response => {
-            console.log(response.data)
+            console.log("Retorno: " + JSON.stringify(response.data))
             setSummary(response.data)
         })
     }, [])
-
+    console.log("Sumario: " + JSON.stringify(summary))
     return (
         <div className="w-full flex">
             <div className="grid grid-rows-7 grid-flow-row gap-3">

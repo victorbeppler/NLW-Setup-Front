@@ -7,14 +7,19 @@ import { useState } from 'react';
 
 interface HabitDayProps {
     date: Date
-    defaultCompleted?: number
     amount?: number
+    defaultCompleted?: number
 }
 
-export function HabitDay({ defaultCompleted = 0, amount = 0, date }: HabitDayProps) {
+export function HabitDay({ date, amount = 0, defaultCompleted = 0, }: HabitDayProps) {
+
     const [completed, setCompleted] = useState(defaultCompleted)
 
     const comlpetedPercentage = amount > 0 ? Math.round((completed / amount) * 100) : 0;
+    console.log("--------------------")
+    console.log(amount)
+    console.log(comlpetedPercentage)
+    console.log("--------------------")
 
     const dayAndMonth = dayjs(date).format('DD/MM')
     const dayOfWeek = dayjs(date).format('dddd')
