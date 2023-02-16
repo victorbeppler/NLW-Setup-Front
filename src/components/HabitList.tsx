@@ -29,7 +29,6 @@ export function HabitList({ date, onCompletedChanged }: HabitsListProps) {
                 date: date.toISOString(),
             }
         }).then(response => {
-            console.log(response.data)
             setHabitsInfo(response.data)
         })
     }, [])
