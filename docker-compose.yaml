@@ -5,7 +5,7 @@ services:
     image: habit-front
     build: .
     ports:
-      - "4000:4000"
+      - "3000:3000"
     restart: on-failure
     container_name: habit-front
     volumes:
