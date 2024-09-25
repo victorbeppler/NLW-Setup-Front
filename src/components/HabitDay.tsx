@@ -3,23 +3,28 @@ import clsx from "clsx";
 import { ProgressBar } from "./ProgressBar";
 import dayjs from "dayjs";
 import { HabitList } from "./HabitList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface HabitDayProps {
   date: Date;
-  amount?: number;
-  defaultCompleted?: number;
+  amount: number;
+  defaultCompleted: number;
 }
 
-export function HabitDay({
-  date,
-  amount = 0,
-  defaultCompleted = 0,
-}: HabitDayProps) {
+export function HabitDay({ date, amount, defaultCompleted }: HabitDayProps) {
   const [completed, setCompleted] = useState(defaultCompleted);
+  const [completedPercentage, setCompletedPercentage] = useState(0);
 
-  const completedPercentage =
-    amount > 0 ? Math.round((completed / amount) * 100) : 0;
+  useEffect(() => {
+    if (amount > 0) {
+      setCompleted(defaultCompleted);
+      const percentage = Math.round((defaultCompleted / amount) * 100);
+      console.log("PERCENT", percentage);
+      setCompletedPercentage(percentage);
+    } else {
+      setCompletedPercentage(0);
+    }
+  }, [completed, amount]);
 
   const dayAndMonth = dayjs(date).format("DD/MM");
   const dayOfWeek = dayjs(date).format("dddd");
@@ -28,8 +33,8 @@ export function HabitDay({
   const isDateToday = dayjs(date).isSame(dayjs(), "day");
   const dayOfMonth = dayjs(date).format("DD");
 
-  function handleCompletedChanged(completed: number) {
-    setCompleted(completed);
+  function handleCompletedChanged(newCompleted: number) {
+    setCompleted(newCompleted);
   }
 
   return (
@@ -56,8 +61,7 @@ export function HabitDay({
               completedPercentage >= 60 &&
               completedPercentage < 80 &&
               isDateInPast,
-            "bg-violet-500 border-violet-400":
-              completedPercentage >= 80 && isDateInPast,
+            "bg-violet-500 border-violet-400": completedPercentage >= 80,
             "w-10 h-10 border-2 border-zinc-800 rounded-lg opacity-40":
               !isDateToday,
             "bg-zinc-900 border-zinc-300": isDateToday,

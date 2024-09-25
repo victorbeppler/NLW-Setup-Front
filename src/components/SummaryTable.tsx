@@ -3,6 +3,9 @@ import { api } from "../lib/axios";
 import { GenerateDatesFromCurrentMonth } from "../utils/generate-dates-from-year-biginning";
 import { HabitDay } from "./HabitDay";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
 
@@ -44,15 +47,15 @@ export function SummaryTable() {
         <div className="grid grid-rows-7 grid-flow-col gap-3">
           {summaryDates.map((date) => {
             const dayInSummary = summary.find((day) =>
-              dayjs(date).isSame(day.date, "day")
+              dayjs.utc(date).isSame(dayjs.utc(day.date), "day")
             );
 
             return (
               <HabitDay
                 key={date.toString()}
                 date={date}
-                amount={dayInSummary?.amount}
-                defaultCompleted={dayInSummary?.completed}
+                amount={dayInSummary?.amount ?? 0}
+                defaultCompleted={dayInSummary?.completed ?? 0}
               />
             );
           })}
